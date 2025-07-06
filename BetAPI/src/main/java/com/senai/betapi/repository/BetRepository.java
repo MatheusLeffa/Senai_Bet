@@ -4,38 +4,32 @@ import com.senai.betapi.entity.Bet;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public class BetRepository {
+    private final static List<Bet> betList = new ArrayList<>();
+    private static Integer id = 0;
 
-    private final static List<Integer> WinningNumbers = new ArrayList<>();
-    private final static List<Bet> BetList = new ArrayList<>();
-
-    public void generateBetWinningNumbers() {
-        WinningNumbers.clear();
-        for (int i = 1; i <= 5; i++) {
-            WinningNumbers.add(i);
-        }
+    public Integer addBet(Bet bet) {
+        bet.setId(++id);
+        betList.add(bet);
+        return id;
     }
 
-    public List<Integer> getWinningNumbers() {
-        return WinningNumbers;
+    public void removeBet(Integer id) throws Exception {
+        if (!betList.removeIf(bet -> bet.getId().equals(id))) {
+            throw new Exception("A aposta não foi encontrada!");
+        }
     }
 
     public List<Bet> getBetList() {
-        return BetList;
+        return betList;
     }
 
-    public boolean addBet(Bet bet) {
-        return BetList.add(bet);
-    }
-
-    public boolean removeBet(Integer id) throws Exception {
-        if(BetList.removeIf(bet -> bet.getId().equals(id))){
-            return true;
-        } else {
-            throw new Exception("A aposta não foi encontrada!");
-        }
+    public void resetBetList() {
+        betList.clear();
     }
 }

@@ -1,12 +1,16 @@
 package com.senai.betapi.entity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-@Data
+@Setter
+@Getter
 public class Bet {
     private Integer id;
-    private List<Integer> betNumbers;
+    private User user;
+    private Set<Integer> betNumbers = new HashSet<>();
     private boolean isWinner;
 }
