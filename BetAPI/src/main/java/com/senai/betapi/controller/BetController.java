@@ -5,17 +5,12 @@ import com.senai.betapi.service.BetService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RestController
 @Tag(name = "Bets", description = "Bets API")
-@Controller
-//@CrossOrigin(origins = "http://localhost:9005")
 public class BetController {
 
     @Autowired
@@ -27,7 +22,7 @@ public class BetController {
     }
 
     @PostMapping("/create-bet")
-    public ResponseEntity<String> createBet(@RequestBody Bet bet) throws Exception {
+    public ResponseEntity<String> createBet(@RequestBody Bet bet) {
         try {
             Integer id = betService.createBet(bet);
             return ResponseEntity.ok("Aposta criada com sucesso! ID: " + id);
@@ -37,7 +32,7 @@ public class BetController {
     }
 
     @DeleteMapping("/remove-bet")
-    public ResponseEntity<String> removeBet(@RequestBody Integer id) throws Exception {
+    public ResponseEntity<String> removeBet(@RequestBody Integer id) {
         try {
             betService.removeBet(id);
             return ResponseEntity.ok("Aposta removida com sucesso!");
