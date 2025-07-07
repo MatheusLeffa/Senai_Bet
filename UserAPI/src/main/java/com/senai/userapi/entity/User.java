@@ -1,4 +1,4 @@
-package com.senai.apigateway.entity;
+package com.senai.userapi.entity;
 
 import lombok.Getter;
 import lombok.Setter;
