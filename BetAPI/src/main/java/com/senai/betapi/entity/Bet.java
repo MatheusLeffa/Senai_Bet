@@ -1,13 +1,13 @@
 package com.senai.betapi.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@Setter
-@Getter
+@Data
 public class Bet {
     private Integer id;
     private User user;

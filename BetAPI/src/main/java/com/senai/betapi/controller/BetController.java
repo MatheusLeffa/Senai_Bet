@@ -24,8 +24,8 @@ public class BetController {
     @PostMapping("/create-bet")
     public ResponseEntity<String> createBet(@RequestBody Bet bet) {
         try {
-            Integer id = betService.createBet(bet);
-            return ResponseEntity.ok("Aposta criada com sucesso! ID: " + id);
+            Bet betCreated = betService.createBet(bet);
+            return ResponseEntity.ok(betCreated.toString());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

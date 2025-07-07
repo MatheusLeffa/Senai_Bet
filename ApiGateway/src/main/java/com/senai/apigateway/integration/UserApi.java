@@ -1,5 +1,6 @@
 package com.senai.apigateway.integration;
 
+import com.senai.apigateway.entity.ResponseObject;
 import com.senai.apigateway.entity.User;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
@@ -10,18 +11,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
-@FeignClient(value = "BetApi", url = "http://localhost:8082")
+@FeignClient(value = "UserApi", url = "http://localhost:8082")
 public interface UserApi {
 
-    @GetMapping("/users")
-    public ResponseEntity<List<User>> getUsers();
+    @GetMapping(value = "/users", produces = "application/json")
+    public ResponseEntity<ResponseObject> getUsers();
 
-    @GetMapping("/users/{id}")
-    public ResponseEntity<User> getUser(@PathVariable Integer id);
+    @GetMapping(value = "/users/{id}", produces = "application/json")
+    public ResponseEntity<ResponseObject> getUser(@PathVariable Integer id);
 
-    @GetMapping("/users/isAllowedToBet/{id}")
-    public ResponseEntity<Boolean> isAllowedToBet(@PathVariable Integer id);
+    @GetMapping(value = "/users/isAllowedToBet/{id}", produces = "application/json")
+    public ResponseEntity<ResponseObject> isAllowedToBet(@PathVariable Integer id);
 
-    @PostMapping("/users")
-    public ResponseEntity<String> createUser(@RequestBody User user);
+    @PostMapping(value = "/users", produces = "application/json")
+    public ResponseEntity<ResponseObject> createUser(@RequestBody User user);
 }

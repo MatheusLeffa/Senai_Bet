@@ -16,7 +16,7 @@ public class BetService {
     private BetRepository betRepository;
     private final Set<Integer> winningNumbers = new HashSet<>();
 
-    public Integer createBet(Bet bet) throws Exception {
+    public Bet createBet(Bet bet) throws Exception {
         if (bet.getBetNumbers().size() != 5) {
             throw new Exception("A aposta deve conter 5 números!");
         }
@@ -29,6 +29,9 @@ public class BetService {
             }
             if (bet.getBetNumbers().contains(number)) {
                 throw new Exception("Os números da aposta não podem se repetir!");
+            }
+            if (bet.getUser() == null) {
+                throw new Exception("O usuário da aposta não pode ser nulo!");
             }
         }
         return betRepository.addBet(bet);

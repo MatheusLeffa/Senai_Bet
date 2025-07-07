@@ -11,10 +11,10 @@ public class BetRepository {
     private final static List<Bet> betList = new ArrayList<>();
     private static Integer id = 0;
 
-    public Integer addBet(Bet bet) {
+    public Bet addBet(Bet bet) {
         bet.setId(++id);
         betList.add(bet);
-        return id;
+        return bet;
     }
 
     public void removeBet(Integer id) throws Exception {

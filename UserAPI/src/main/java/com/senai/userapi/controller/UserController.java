@@ -1,6 +1,11 @@
 package com.senai.userapi.controller;
 
+import com.senai.userapi.entity.ResponseObject;
 import com.senai.userapi.entity.User;
+import com.senai.userapi.service.UserService;
+import org.apache.catalina.connector.Response;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,23 +14,41 @@ import java.util.List;
 @RestController
 public class UserController {
 
-    @GetMapping("/users")
-    public ResponseEntity<List<User>> getUsers() {
+    @Autowired
+    private UserService userService;
 
+    @GetMapping(value = "/users", produces = "application/json")
+    public ResponseEntity<ResponseObject> getUsers() {
+        List<User> users = userService.getUsers();
+        return ResponseEntity.ok(new ResponseObject(true, users));
     }
 
-    @GetMapping("/users/{id}")
-    public ResponseEntity<User> getUser(@PathVariable Integer id) {
-
+    @GetMapping(value = "/users/{id}", produces = "application/json")
+    public ResponseEntity<ResponseObject> getUser(@PathVariable Integer id) {
+        try {
+            User user = userService.getUser(id);
+            return ResponseEntity.ok(new ResponseObject(true, user));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject(false, e.getMessage()));
+        }
     }
 
-    @GetMapping("/users/isAllowedToBet/{id}")
-    public ResponseEntity<Boolean> isAllowedToBet(@PathVariable Integer id) {
-
+    @GetMapping(value = "/users/isAllowedToBet/{id}", produces = "application/json")
+    public ResponseEntity<ResponseObject> isAllowedToBet(@PathVariable Integer id) {
+        try {
+            return ResponseEntity.ok(new ResponseObject(true, userService.isAllowedToBet(id)));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new ResponseObject(false, e.getMessage()));
+        }
     }
 
-    @PostMapping("/users")
-    public ResponseEntity<String> createUser(@RequestBody User user) {
-
+    @PostMapping(value = "/users", produces = "application/json")
+    public ResponseEntity<ResponseObject> createUser(@RequestBody User user) {
+        try {
+            User createdUser = userService.createUser(user);
+            return ResponseEntity.ok(new ResponseObject(true, createdUser));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new ResponseObject(false, e.getMessage()));
+        }
     }
 }
