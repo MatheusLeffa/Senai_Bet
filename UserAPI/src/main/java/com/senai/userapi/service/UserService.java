@@ -45,6 +45,4 @@ public class UserService {
             throw new Exception("User is not allowed to bet.");
         }
     }
-
-
 }

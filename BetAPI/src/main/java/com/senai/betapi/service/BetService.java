@@ -49,6 +49,24 @@ public class BetService {
         return betRepository.getBetList();
     }
 
+    public Bet getBetById(Integer id) throws Exception {
+        Bet bet = betRepository.getBetById(id);
+        if (bet == null) {
+            throw new Exception("A aposta não foi encontrada!");
+        }
+        return bet;
+    }
+
+    public Boolean runIndividualGame(Integer id) throws Exception {
+        this.generateBetWinningNumbers();
+        try {
+            Bet bet = this.getBetById(id);
+            return bet.getBetNumbers().containsAll(winningNumbers);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
     public List<Bet> runGame() {
         this.generateBetWinningNumbers();
         for (Bet bet : betRepository.getBetList()) {

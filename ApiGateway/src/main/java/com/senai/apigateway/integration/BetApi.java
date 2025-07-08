@@ -1,29 +1,33 @@
 package com.senai.apigateway.integration;
 
 import com.senai.apigateway.entity.Bet;
+import com.senai.apigateway.entity.ResponseObject;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @FeignClient(value = "BetApi", url = "http://localhost:8081")
 public interface BetApi {
-    @GetMapping("/bets")
-    public ResponseEntity<List<Bet>> getBets();
+    @GetMapping(value = "/bets", produces = "application/json")
+    public ResponseEntity<ResponseObject> getBets();
 
-    @PostMapping("/create-bet")
-    public ResponseEntity<String> createBet(@RequestBody Bet bet);
+    @GetMapping(value = "/bets/{id}", produces = "application/json")
+    public ResponseEntity<ResponseObject> getBetById(@PathVariable Integer id);
 
-    @DeleteMapping("/remove-bet")
-    public ResponseEntity<String> removeBet(@RequestBody Integer id);
+    @PostMapping(value = "/bets/create", produces = "application/json")
+    public ResponseEntity<ResponseObject> createBet(@RequestBody Bet bet);
 
-    @PostMapping("/run-game")
-    public ResponseEntity<List<Bet>> runGame();
+    @DeleteMapping(value = "/bets/remove", produces = "application/json")
+    public ResponseEntity<ResponseObject> removeBet(@RequestBody Integer id);
 
-    @PostMapping("/reset-game")
-    public ResponseEntity<String> resetGame();
+    @PostMapping(value = "/bets/run-individual-game", produces = "application/json")
+    public ResponseEntity<ResponseObject> runIndividualGame(@RequestBody Integer id);
+
+    @PostMapping(value = "/bets/run-game", produces = "application/json")
+    public ResponseEntity<ResponseObject> runGame();
+
+    @PostMapping(value = "/bets/reset-game", produces = "application/json")
+    public ResponseEntity<ResponseObject> resetGame();
 }

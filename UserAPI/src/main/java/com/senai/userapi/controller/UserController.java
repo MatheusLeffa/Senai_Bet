@@ -29,7 +29,8 @@ public class UserController {
             User user = userService.getUser(id);
             return ResponseEntity.ok(new ResponseObject(true, user));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject(false, e.getMessage()));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ResponseObject(false, e.getMessage()));
         }
     }
 
@@ -38,7 +39,8 @@ public class UserController {
         try {
             return ResponseEntity.ok(new ResponseObject(true, userService.isAllowedToBet(id)));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new ResponseObject(false, e.getMessage()));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ResponseObject(false, e.getMessage()));
         }
     }
 
@@ -48,7 +50,8 @@ public class UserController {
             User createdUser = userService.createUser(user);
             return ResponseEntity.ok(new ResponseObject(true, createdUser));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new ResponseObject(false, e.getMessage()));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ResponseObject(false, e.getMessage()));
         }
     }
 }
