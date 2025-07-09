@@ -1,5 +1,6 @@
 package com.senai.apigateway.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.senai.apigateway.dtos.NewBetDto;
 import com.senai.apigateway.entity.Bet;
 import com.senai.apigateway.entity.ResponseObject;
@@ -17,6 +18,7 @@ public class BetController {
     private BetApi betApi;
     @Autowired
     private UserApi userApi;
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @GetMapping(value = "/bets", produces = "application/json")
     public ResponseEntity<ResponseObject> getBets() {
@@ -35,7 +37,9 @@ public class BetController {
         if (getUserResponse == null) {
             return ResponseEntity.status(500).body(new ResponseObject(false, "Erro de ao deserializar objeto."));
         }
-        User user = (User) getUserResponse.getResult();
+
+        User user = objectMapper.convertValue(getUserResponse.getResult(), User.class);
+
         // Verifica se ele pode apostar
         if (!user.isAllowedToBet()) {
             return ResponseEntity.status(400).body(new ResponseObject(false, "O usuário nao pode apostar."));
@@ -53,7 +57,7 @@ public class BetController {
         }
 
         // Verifica se o usuário ganhou
-        bet = (Bet) runIndividualGameResponse.getResult();
+        bet = objectMapper.convertValue(runIndividualGameResponse.getResult(), Bet.class);
         if (!bet.isWinner()) {
             return ResponseEntity.status(200).body(new ResponseObject(true, bet));
         }

@@ -27,9 +27,6 @@ public class BetService {
             if (number > 100) {
                 throw new Exception("Os números da aposta devem ser menores que 100!");
             }
-            if (bet.getBetNumbers().contains(number)) {
-                throw new Exception("Os números da aposta não podem se repetir!");
-            }
             if (bet.getUser() == null) {
                 throw new Exception("O usuário da aposta não pode ser nulo!");
             }

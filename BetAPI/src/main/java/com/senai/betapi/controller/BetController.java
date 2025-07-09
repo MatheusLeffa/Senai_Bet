@@ -46,7 +46,6 @@ public class BetController {
         }
     }
 
-
     @PostMapping(value = "/bets/run-individual-game", produces = "application/json")
     public ResponseEntity<ResponseObject> runIndividualGame(@RequestBody Bet bet) {
         try {
