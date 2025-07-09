@@ -57,11 +57,13 @@ public class BetService {
         return bet;
     }
 
-    public Boolean runIndividualGame(Integer id) throws Exception {
+    public Bet runIndividualGame(Bet bet) throws Exception {
         this.generateBetWinningNumbers();
         try {
-            Bet bet = this.getBetById(id);
-            return bet.getBetNumbers().containsAll(winningNumbers);
+            Bet betCreated = this.createBet(bet);
+            boolean isWinner = betCreated.getBetNumbers().containsAll(winningNumbers);
+            betCreated.setWinner(isWinner);
+            return betCreated;
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -77,17 +79,22 @@ public class BetService {
         return betRepository.getBetList().stream().filter(Bet::isWinner).toList();
     }
 
-    public void resetGame() {
-        betRepository.resetBetList();
+    public void clearBetList() {
+        betRepository.clearBetList();
     }
 
     private void generateBetWinningNumbers() {
         winningNumbers.clear();
-        java.util.Random random = new java.util.Random();
-        while (winningNumbers.size() < 5) {
-            int randomNumber = random.nextInt(100) + 1; // Generates number between 1-100
-            winningNumbers.add(randomNumber);
-        }
+        winningNumbers.add(1);
+        winningNumbers.add(2);
+        winningNumbers.add(3);
+        winningNumbers.add(4);
+        winningNumbers.add(5);
+//        java.util.Random random = new java.util.Random();
+//        while (winningNumbers.size() < 5) {
+//            int randomNumber = random.nextInt(10) + 1; // Generates number between 1-10
+//            winningNumbers.add(randomNumber);
+//        }
     }
 
     private boolean checkIfBetIsWinner(Bet bet) {

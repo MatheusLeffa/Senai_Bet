@@ -46,22 +46,12 @@ public class BetController {
         }
     }
 
-    @DeleteMapping(value = "/bets/remove", produces = "application/json")
-    public ResponseEntity<ResponseObject> removeBet(@RequestBody Integer id) {
-        try {
-            betService.removeBet(id);
-            return ResponseEntity.ok(new ResponseObject(true, "Aposta removida com sucesso!"));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new ResponseObject(false, e.getMessage()));
-        }
-    }
 
     @PostMapping(value = "/bets/run-individual-game", produces = "application/json")
-    public ResponseEntity<ResponseObject> runIndividualGame(@RequestBody Integer id) {
+    public ResponseEntity<ResponseObject> runIndividualGame(@RequestBody Bet bet) {
         try {
-            boolean isWinner = betService.runIndividualGame(id);
-            return ResponseEntity.ok(new ResponseObject(true, isWinner));
+            Bet betCreated = betService.runIndividualGame(bet);
+            return ResponseEntity.ok(new ResponseObject(true, betCreated));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new ResponseObject(false, e.getMessage()));
@@ -74,9 +64,20 @@ public class BetController {
         return ResponseEntity.ok(new ResponseObject(true, winningBets));
     }
 
-    @PostMapping(value = "/bets/reset-game", produces = "application/json")
-    public ResponseEntity<ResponseObject> resetGame() {
-        betService.resetGame();
+    @DeleteMapping(value = "/bets/remove", produces = "application/json")
+    public ResponseEntity<ResponseObject> removeBet(@RequestBody Integer id) {
+        try {
+            betService.removeBet(id);
+            return ResponseEntity.ok(new ResponseObject(true, "Aposta removida com sucesso!"));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ResponseObject(false, e.getMessage()));
+        }
+    }
+
+    @DeleteMapping(value = "/bets/clear-bet-list", produces = "application/json")
+    public ResponseEntity<ResponseObject> clearBetList() {
+        betService.clearBetList();
         return ResponseEntity.ok(new ResponseObject(true, "Jogo resetado com sucesso!"));
     }
 }

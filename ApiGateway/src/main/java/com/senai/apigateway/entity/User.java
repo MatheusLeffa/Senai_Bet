@@ -1,13 +1,12 @@
 package com.senai.apigateway.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class User {
     private Integer id;
     private String name;
     private String email;
     private Integer age;
+    private boolean isAllowedToBet;
 }

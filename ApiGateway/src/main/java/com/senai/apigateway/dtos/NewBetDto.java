@@ -1,4 +1,4 @@
-package com.senai.apigateway.entity;
+package com.senai.apigateway.dtos;
 
 import lombok.Data;
 
@@ -6,9 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
-public class Bet {
-    private Integer id;
-    private User user;
+public class NewBetDto {
+    private Integer userId;
     private Set<Integer> betNumbers = new HashSet<>();
-    private boolean isWinner;
 }

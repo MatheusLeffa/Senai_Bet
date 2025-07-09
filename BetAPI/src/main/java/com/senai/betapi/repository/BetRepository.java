@@ -31,7 +31,7 @@ public class BetRepository {
         return betList.stream().filter(bet -> bet.getId().equals(id)).findFirst().orElse(null);
     }
 
-    public void resetBetList() {
+    public void clearBetList() {
         betList.clear();
     }
 }

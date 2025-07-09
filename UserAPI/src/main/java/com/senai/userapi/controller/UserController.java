@@ -34,21 +34,22 @@ public class UserController {
         }
     }
 
-    @GetMapping(value = "/users/isAllowedToBet/{id}", produces = "application/json")
-    public ResponseEntity<ResponseObject> isAllowedToBet(@PathVariable Integer id) {
+    @PostMapping(value = "/users", produces = "application/json")
+    public ResponseEntity<ResponseObject> createUser(@RequestBody User user) {
         try {
-            return ResponseEntity.ok(new ResponseObject(true, userService.isAllowedToBet(id)));
+            User createdUser = userService.createUser(user);
+            return ResponseEntity.ok(new ResponseObject(true, createdUser));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new ResponseObject(false, e.getMessage()));
         }
     }
 
-    @PostMapping(value = "/users", produces = "application/json")
-    public ResponseEntity<ResponseObject> createUser(@RequestBody User user) {
+    @PutMapping(value = "/users/update", produces = "application/json")
+    public ResponseEntity<ResponseObject> updateUser(@RequestBody User user) {
         try {
-            User createdUser = userService.createUser(user);
-            return ResponseEntity.ok(new ResponseObject(true, createdUser));
+            User updatedUser = userService.updateUser(user);
+            return ResponseEntity.ok(new ResponseObject(true, updatedUser));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new ResponseObject(false, e.getMessage()));

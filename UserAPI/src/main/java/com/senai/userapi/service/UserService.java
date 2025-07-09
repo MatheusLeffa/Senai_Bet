@@ -15,13 +15,13 @@ public class UserService {
 
     public User createUser(User user) throws IllegalArgumentException {
         if (user.getAge() < 18) {
-            throw new IllegalArgumentException("User must be 18 or older to bet.");
+            throw new IllegalArgumentException("Usuário menor de idade.");
         }
         if (user.getName() == null || user.getName().isEmpty()) {
-            throw new IllegalArgumentException("User name cannot be empty.");
+            throw new IllegalArgumentException("Nome do usuário não pode ser vazio.");
         }
-        if (user.getEmail() == null || user.getEmail().isEmpty()) {
-            throw new IllegalArgumentException("User email cannot be empty.");
+        if (user.getEmail() == null || user.getEmail().isEmpty() || !user.getEmail().contains("@")) {
+            throw new IllegalArgumentException("Email inválido.");
         }
         return userRepository.createUser(user);
     }
@@ -33,16 +33,16 @@ public class UserService {
     public User getUser(Integer id) throws Exception {
         User user = userRepository.getUser(id);
         if (user == null) {
-            throw new Exception("User not found.");
+            throw new Exception("Usuario não encontrado.");
         }
         return user;
     }
 
-    public boolean isAllowedToBet(Integer id) throws Exception {
-        if (userRepository.isAllowedToBet(id)) {
-            return true;
-        } else {
-            throw new Exception("User is not allowed to bet.");
+    public User updateUser(User user) throws Exception {
+        User userToUpdate = userRepository.getUser(user.getId());
+        if (userToUpdate == null) {
+            throw new Exception("Usuario nao encontrado.");
         }
+        return userRepository.updateUser(user);
     }
 }

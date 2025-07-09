@@ -1,4 +1,4 @@
-package com.senai.apigateway.controller;
+package com.senai.apigateway.configuration;
 
 import com.senai.apigateway.entity.ResponseObject;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -20,7 +20,7 @@ public class FeignExceptionHandler {
             return ResponseEntity.status(e.status()).body(responseObject);
         } catch (Exception parseException) {
             // Fallback para erro genérico se falhar o parsing
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(new ResponseObject(false, "Erro ao comunicar com serviço externo"));
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(new ResponseObject(false, "Erro ao comunicar com serviço."));
         }
     }
 }

@@ -23,13 +23,13 @@ public class UserController {
         return ResponseEntity.ok(userApi.getUser(id).getBody());
     }
 
-    @GetMapping(value = "/users/isAllowedToBet/{id}", produces = "application/json")
-    public ResponseEntity<ResponseObject> isAllowedToBet(@PathVariable Integer id) {
-        return ResponseEntity.ok(userApi.isAllowedToBet(id).getBody());
-    }
-
     @PostMapping(value = "/users", produces = "application/json")
     public ResponseEntity<ResponseObject> createUser(@RequestBody User user) {
         return ResponseEntity.ok(userApi.createUser(user).getBody());
+    }
+
+    @PutMapping(value = "/users/update", produces = "application/json")
+    public ResponseEntity<ResponseObject> updateUser(@RequestBody User user) {
+        return ResponseEntity.ok(userApi.updateUser(user).getBody());
     }
 }

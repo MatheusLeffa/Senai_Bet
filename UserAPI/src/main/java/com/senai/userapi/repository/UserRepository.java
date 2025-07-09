@@ -18,16 +18,17 @@ public class UserRepository {
         return user;
     }
 
+    public User updateUser(User user) {
+        users.removeIf(u -> u.getId().equals(user.getId()));
+        users.add(user);
+        return user;
+    }
+
     public List<User> getUsers() {
         return users;
     }
 
     public User getUser(Integer id) {
         return users.stream().filter(user -> user.getId().equals(id)).findFirst().orElse(null);
-    }
-
-    public boolean isAllowedToBet(Integer id) {
-        User user = getUser(id);
-        return user != null && user.getAge() >= 18;
     }
 }
