@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Frontend App</title>
+</head>
+<body>
+<h1>Create User</h1>
+<form th:action="@{/create-user}" th:object="${newUser}" method="post">
+    <input type="text" th:field="*{name}" placeholder="Name"/>
+    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</p>
+
+    <input type="email" th:field="*{email}" placeholder="Email"/>
+    <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</p>
+
+    <input type="number" th:field="*{age}" placeholder="Age"/>
+    <p th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age Error</p>
+
+    <label><input type="checkbox" th:field="*{allowedToBet}"/> Allowed to Bet</label>
+    <button type="submit">Create</button>
+</form>
+
+<h2>Users</h2>
+<ul>
+    <li th:each="user : ${users}">
+        <span th:text="${user.name}">Name</span> -
+        <span th:text="${user.email}">Email</span>
+    </li>
+</ul>
+
+<h1>Create Bet</h1>
+<form th:action="@{/place-bet}" th:object="${newBet}" method="post">
+    <label>User:
+        <select th:field="*{userId}">
+            <option value="" disabled selected>Select user</option>
+            <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}"></option>
+        </select>
+    </label>
+    <p th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}">User Error</p>
+
+    <label>Bet Numbers (comma-separated):
+        <input type="text" th:field="*{betNumbers}" placeholder="e.g., 1,2,3"/>
+    </label>
+    <p th:if="${#fields.hasErrors('betNumbers')}" th:errors="*{betNumbers}">Numbers Error</p>
+
+    <button type="submit">Place Bet</button>
+</form>
+
+<div th:if="${isWinner != null}">
+    <p th:if="${isWinner}" style="color: green;">You won the bet!</p>
+    <p th:unless="${isWinner}" style="color: red;">You lost the bet.</p>
+</div>
+</body>
+</html>
