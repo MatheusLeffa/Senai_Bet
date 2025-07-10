@@ -19,9 +19,8 @@ public class WalletRepository {
         return wallets.stream().filter(w -> w.getUser().getId().equals(id)).findFirst().orElse(null);
     }
 
-    public Wallet updateWallet(Wallet wallet) {
+    public void updateWallet(Wallet wallet) {
         wallets.removeIf(w -> w.getUser().getId().equals(wallet.getUser().getId()));
         wallets.add(wallet);
-        return wallet;
     }
 }

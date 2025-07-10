@@ -86,16 +86,17 @@ public class BetService {
 
     private void generateBetWinningNumbers() {
         winningNumbers.clear();
-//        winningNumbers.add(1); Remove these comments for testing
-//        winningNumbers.add(2);
-//        winningNumbers.add(3);
-//        winningNumbers.add(4);
-//        winningNumbers.add(5);
-        java.util.Random random = new java.util.Random();
-        while (winningNumbers.size() < 5) {
-            int randomNumber = random.nextInt(10) + 1; // Generates number between 1-10
-            winningNumbers.add(randomNumber);
-        }
+        winningNumbers.add(1);
+        winningNumbers.add(2);
+        winningNumbers.add(3);
+        winningNumbers.add(4);
+        winningNumbers.add(5);
+        //COMENTADO PARA TESTAR O CASO DE VITORIA
+//        java.util.Random random = new java.util.Random();
+//        while (winningNumbers.size() < 5) {
+//            int randomNumber = random.nextInt(10) + 1; // Generates number between 1-10
+//            winningNumbers.add(randomNumber);
+//        }
     }
 
     private boolean checkIfBetIsWinner(Bet bet) {

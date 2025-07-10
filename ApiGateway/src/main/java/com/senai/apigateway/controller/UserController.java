@@ -1,7 +1,8 @@
 package com.senai.apigateway.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.senai.apigateway.dtos.ResponseObject;
+import com.senai.apigateway.dto.NewUserDto;
+import com.senai.apigateway.dto.ResponseDto;
 import com.senai.apigateway.entity.User;
 import com.senai.apigateway.integration.UserApi;
 import com.senai.apigateway.integration.UserWalletApi;
@@ -24,25 +25,26 @@ public class UserController {
     }
 
     @GetMapping(value = "/users", produces = "application/json")
-    public ResponseEntity<ResponseObject> getUsers() {
+    public ResponseEntity<ResponseDto> getUsers() {
         return userApi.getUsers();
     }
 
     @GetMapping(value = "/users/{id}", produces = "application/json")
-    public ResponseEntity<ResponseObject> getUser(@PathVariable Integer id) {
+    public ResponseEntity<ResponseDto> getUser(@PathVariable Integer id) {
         return ResponseEntity.ok(userApi.getUser(id).getBody());
     }
 
     @PostMapping(value = "/users", produces = "application/json")
-    public ResponseEntity<ResponseObject> createUser(@RequestBody User user) {
-        ResponseObject createUserResponse = userApi.createUser(user).getBody();
+    public ResponseEntity<ResponseDto> createUser(@RequestBody NewUserDto newUserDto) {
+        User user = objectMapper.convertValue(newUserDto, User.class);
+        ResponseDto createUserResponse = userApi.createUser(user).getBody();
 
         if (createUserResponse == null) {
-            return ResponseEntity.status(500).body(new ResponseObject(false, "Erro ao deserializar objeto."));
+            return ResponseEntity.status(500).body(new ResponseDto(false, "Erro ao deserializar objeto."));
         }
 
         User createdUser = objectMapper.convertValue(createUserResponse.getResult(), User.class);
         userWalletApi.createWallet(createdUser);
-        return ResponseEntity.ok(new ResponseObject(true, createdUser));
+        return ResponseEntity.ok(new ResponseDto(true, createdUser));
     }
 }

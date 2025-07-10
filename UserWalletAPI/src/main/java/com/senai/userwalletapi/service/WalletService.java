@@ -22,23 +22,24 @@ public class WalletService {
         }
         Wallet wallet = new Wallet();
         wallet.setUser(user);
+        wallet.setBalance(0.0d);
         return walletRepository.createWallet(wallet);
     }
 
-    public Wallet getWalletByUser(User user) throws Exception {
-        Wallet wallet = walletRepository.getWalletByUserId(user.getId());
+    public Wallet getWalletByUserId(Integer userId) throws Exception {
+        Wallet wallet = walletRepository.getWalletByUserId(userId);
         if (wallet == null) {
             throw new Exception("A carteira nao foi encontrada!");
         }
         return wallet;
     }
 
-    public Wallet addCreditToWallet(User user, Double addValue) throws Exception {
-        Wallet walletToUpdate = walletRepository.getWalletByUserId(user.getId());
+    public void addCreditToWallet(Integer userId, Double addValue) throws Exception {
+        Wallet walletToUpdate = walletRepository.getWalletByUserId(userId);
         if (walletToUpdate == null) {
             throw new Exception("A carteira nao foi encontrada!");
         }
         walletToUpdate.setBalance(walletToUpdate.getBalance() + addValue);
-        return walletRepository.updateWallet(walletToUpdate);
+        walletRepository.updateWallet(walletToUpdate);
     }
 }

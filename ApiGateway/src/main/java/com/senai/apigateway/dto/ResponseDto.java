@@ -1,16 +1,16 @@
-package com.senai.apigateway.dtos;
+package com.senai.apigateway.dto;
 
 import lombok.Data;
 
 @Data
-public class ResponseObject {
+public class ResponseDto {
     private boolean isSuccess;
     private Object result;
 
-    public ResponseObject() {
+    public ResponseDto() {
     }
 
-    public ResponseObject(boolean isSuccess, Object result) {
+    public ResponseDto(boolean isSuccess, Object result) {
         this.isSuccess = isSuccess;
         this.result = result;
     }

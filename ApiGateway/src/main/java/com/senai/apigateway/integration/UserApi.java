@@ -1,6 +1,6 @@
 package com.senai.apigateway.integration;
 
-import com.senai.apigateway.dtos.ResponseObject;
+import com.senai.apigateway.dto.ResponseDto;
 import com.senai.apigateway.entity.User;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.*;
 public interface UserApi {
 
     @GetMapping(value = "/users", produces = "application/json")
-    public ResponseEntity<ResponseObject> getUsers();
+    public ResponseEntity<ResponseDto> getUsers();
 
     @GetMapping(value = "/users/{id}", produces = "application/json")
-    public ResponseEntity<ResponseObject> getUser(@PathVariable Integer id);
+    public ResponseEntity<ResponseDto> getUser(@PathVariable Integer id);
 
     @PostMapping(value = "/users", produces = "application/json")
-    public ResponseEntity<ResponseObject> createUser(@RequestBody User user);
+    public ResponseEntity<ResponseDto> createUser(@RequestBody User user);
 }

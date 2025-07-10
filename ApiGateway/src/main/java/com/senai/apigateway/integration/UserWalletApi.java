@@ -1,22 +1,21 @@
 package com.senai.apigateway.integration;
 
-import com.senai.apigateway.dtos.PaymentDto;
-import com.senai.apigateway.dtos.ResponseObject;
+import com.senai.apigateway.dto.PaymentDto;
+import com.senai.apigateway.dto.ResponseDto;
 import com.senai.apigateway.entity.User;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(value = "UserWallet", url = "http://localhost:8083")
 public interface UserWalletApi {
 
-    @GetMapping(value = "/wallets", produces = "application/json")
-    public ResponseEntity<ResponseObject> getWalletByUser(User user);
+    @GetMapping(value = "/wallet/{userId}", produces = "application/json")
+    public ResponseEntity<ResponseDto> getWalletByUserId(@PathVariable Integer userId);
 
-    @PostMapping(value = "/wallets", produces = "application/json")
-    public ResponseEntity<ResponseObject> createWallet(User user);
-
-    @PostMapping(value = "/wallets/winner-payment", produces = "application/json")
-    public ResponseEntity<ResponseObject> winnerPayment(PaymentDto paymentDto);
+    @PostMapping(value = "/wallet", produces = "application/json")
+    public ResponseEntity<ResponseDto> createWallet(@RequestBody User user);
 }

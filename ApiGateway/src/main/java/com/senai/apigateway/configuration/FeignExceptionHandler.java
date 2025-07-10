@@ -1,6 +1,6 @@
 package com.senai.apigateway.configuration;
 
-import com.senai.apigateway.dtos.ResponseObject;
+import com.senai.apigateway.dto.ResponseDto;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.FeignException;
@@ -16,11 +16,11 @@ public class FeignExceptionHandler {
     public ResponseEntity<Object> handleFeignStatusException(FeignException e) {
         try {
             String responseBody = e.contentUTF8();
-            ResponseObject responseObject = objectMapper.readValue(responseBody, ResponseObject.class);
-            return ResponseEntity.status(e.status()).body(responseObject);
+            ResponseDto responseDto = objectMapper.readValue(responseBody, ResponseDto.class);
+            return ResponseEntity.status(e.status()).body(responseDto);
         } catch (Exception parseException) {
             // Fallback para erro genérico se falhar o parsing
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(new ResponseObject(false, "Erro ao comunicar com serviço."));
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(new ResponseDto(false, "Erro ao comunicar com serviço."));
         }
     }
 }

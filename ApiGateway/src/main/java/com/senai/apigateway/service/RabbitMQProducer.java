@@ -1,6 +1,6 @@
 package com.senai.apigateway.service;
 
-import com.senai.apigateway.dtos.MessageObject;
+import com.senai.apigateway.dto.MessageDto;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,7 +20,7 @@ public class RabbitMQProducer {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    public void sendMessage(MessageObject message) {
+    public void sendMessage(MessageDto message) {
         rabbitTemplate.convertAndSend(exchangeName, routingKey, message);
     }
 

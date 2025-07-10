@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 public class PaymentDto {
-    private User user;
+    private Integer userId;
     private Double paymentValue;
 }

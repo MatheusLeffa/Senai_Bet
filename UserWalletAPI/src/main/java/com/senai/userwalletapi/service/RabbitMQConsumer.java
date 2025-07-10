@@ -25,7 +25,7 @@ public class RabbitMQConsumer {
         try {
             if (message.getEvent().equals("PAYMENT")) {
                 PaymentDto paymentDto = objectMapper.convertValue(message.getData(), PaymentDto.class);
-                walletService.addCreditToWallet(paymentDto.getUser(), paymentDto.getPaymentValue());
+                walletService.addCreditToWallet(paymentDto.getUserId(), paymentDto.getPaymentValue());
             }
         } catch (Exception e) {
             if (message.getEvent().equals("PAYMENT")) {
