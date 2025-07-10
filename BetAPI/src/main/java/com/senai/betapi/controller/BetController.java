@@ -15,8 +15,12 @@ import java.util.List;
 @Tag(name = "Bets", description = "Bets API")
 public class BetController {
 
+    private final BetService betService;
+
     @Autowired
-    private BetService betService;
+    public BetController(BetService betService) {
+        this.betService = betService;
+    }
 
     @GetMapping(value = "/bets", produces = "application/json")
     public ResponseEntity<ResponseObject> getBets() {

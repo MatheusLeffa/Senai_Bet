@@ -1,7 +1,6 @@
 package com.senai.apigateway.service;
 
-import com.senai.apigateway.dtos.PaymentDto;
-import com.senai.apigateway.entity.MessageObject;
+import com.senai.apigateway.dtos.MessageObject;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

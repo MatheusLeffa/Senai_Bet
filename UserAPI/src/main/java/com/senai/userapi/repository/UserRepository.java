@@ -8,7 +8,6 @@ import java.util.List;
 
 @Repository
 public class UserRepository {
-
     private final static List<User> users = new ArrayList<>();
     private static Integer id = 0;
 

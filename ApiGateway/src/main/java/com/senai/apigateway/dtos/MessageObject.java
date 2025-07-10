@@ -1,4 +1,4 @@
-package com.senai.userwalletapi.entity;
+package com.senai.apigateway.dtos;
 
 import lombok.Data;
 

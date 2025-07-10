@@ -1,7 +1,7 @@
 package com.senai.userwalletapi.controller;
 
-import com.senai.userwalletapi.dtos.PaymentDto;
-import com.senai.userwalletapi.entity.ResponseObject;
+import com.senai.userwalletapi.dto.PaymentDto;
+import com.senai.userwalletapi.dto.ResponseDto;
 import com.senai.userwalletapi.entity.User;
 import com.senai.userwalletapi.entity.Wallet;
 import com.senai.userwalletapi.service.WalletService;
@@ -22,34 +22,34 @@ public class WalletController {
     }
 
     @GetMapping(value = "/wallets", produces = "application/json")
-    public ResponseEntity<ResponseObject> getWalletByUser(User user) {
+    public ResponseEntity<ResponseDto> getWalletByUser(User user) {
         try {
             Wallet wallet = walletService.getWalletByUser(user);
-            return ResponseEntity.ok(new ResponseObject(true, wallet));
+            return ResponseEntity.ok(new ResponseDto(true, wallet));
         } catch (Exception e) {
-            return ResponseEntity.status(400).body(new ResponseObject(false, e.getMessage()));
+            return ResponseEntity.status(400).body(new ResponseDto(false, e.getMessage()));
         }
     }
 
     @PostMapping(value = "/wallets", produces = "application/json")
-    public ResponseEntity<ResponseObject> createWallet(User user) {
+    public ResponseEntity<ResponseDto> createWallet(User user) {
         try {
             Wallet wallet = walletService.createWallet(user);
-            return ResponseEntity.ok(new ResponseObject(true, wallet));
+            return ResponseEntity.ok(new ResponseDto(true, wallet));
         } catch (Exception e) {
-            return ResponseEntity.status(400).body(new ResponseObject(false, e.getMessage()));
+            return ResponseEntity.status(400).body(new ResponseDto(false, e.getMessage()));
         }
     }
 
     @PostMapping(value = "/wallets/winner-payment", produces = "application/json")
-    public ResponseEntity<ResponseObject> winnerPayment(PaymentDto paymentDto) {
+    public ResponseEntity<ResponseDto> winnerPayment(PaymentDto paymentDto) {
         User user = paymentDto.getUser();
         Double paymentValue = paymentDto.getPaymentValue();
         try {
             Wallet wallet = walletService.addCreditToWallet(user, paymentValue);
-            return ResponseEntity.ok(new ResponseObject(true, wallet));
+            return ResponseEntity.ok(new ResponseDto(true, wallet));
         } catch (Exception e) {
-            return ResponseEntity.status(400).body(new ResponseObject(false, e.getMessage()));
+            return ResponseEntity.status(400).body(new ResponseDto(false, e.getMessage()));
         }
     }
 }

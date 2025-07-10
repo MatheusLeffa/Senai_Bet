@@ -11,10 +11,14 @@ import java.util.Set;
 
 @Service
 public class BetService {
+    private final BetRepository betRepository;
+    private final Set<Integer> winningNumbers;
 
     @Autowired
-    private BetRepository betRepository;
-    private final Set<Integer> winningNumbers = new HashSet<>();
+    public BetService(BetRepository betRepository) {
+        this.betRepository = betRepository;
+        this.winningNumbers = new HashSet<>();
+    }
 
     public Bet createBet(Bet bet) throws Exception {
         if (bet.getBetNumbers().size() != 5) {
@@ -82,16 +86,16 @@ public class BetService {
 
     private void generateBetWinningNumbers() {
         winningNumbers.clear();
-        winningNumbers.add(1);
-        winningNumbers.add(2);
-        winningNumbers.add(3);
-        winningNumbers.add(4);
-        winningNumbers.add(5);
-//        java.util.Random random = new java.util.Random();
-//        while (winningNumbers.size() < 5) {
-//            int randomNumber = random.nextInt(10) + 1; // Generates number between 1-10
-//            winningNumbers.add(randomNumber);
-//        }
+//        winningNumbers.add(1); Remove these comments for testing
+//        winningNumbers.add(2);
+//        winningNumbers.add(3);
+//        winningNumbers.add(4);
+//        winningNumbers.add(5);
+        java.util.Random random = new java.util.Random();
+        while (winningNumbers.size() < 5) {
+            int randomNumber = random.nextInt(10) + 1; // Generates number between 1-10
+            winningNumbers.add(randomNumber);
+        }
     }
 
     private boolean checkIfBetIsWinner(Bet bet) {

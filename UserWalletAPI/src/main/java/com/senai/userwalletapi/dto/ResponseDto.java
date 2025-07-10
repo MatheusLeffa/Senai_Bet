@@ -1,13 +1,13 @@
-package com.senai.userwalletapi.entity;
+package com.senai.userwalletapi.dto;
 
 import lombok.Data;
 
 @Data
-public class ResponseObject {
+public class ResponseDto {
     private boolean isSuccess;
     private Object result;
 
-    public ResponseObject(boolean isSuccess, Object result) {
+    public ResponseDto(boolean isSuccess, Object result) {
         this.isSuccess = isSuccess;
         this.result = result;
     }

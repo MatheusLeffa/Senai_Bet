@@ -1,10 +1,11 @@
 package com.senai.apigateway.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.senai.apigateway.entity.ResponseObject;
+import com.senai.apigateway.dtos.ResponseObject;
 import com.senai.apigateway.entity.User;
 import com.senai.apigateway.integration.UserApi;
 import com.senai.apigateway.integration.UserWalletApi;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +16,7 @@ public class UserController {
     private final UserWalletApi userWalletApi;
     private final ObjectMapper objectMapper;
 
+    @Autowired
     public UserController(UserApi userApi, UserWalletApi userWalletApi) {
         this.userApi = userApi;
         this.userWalletApi = userWalletApi;

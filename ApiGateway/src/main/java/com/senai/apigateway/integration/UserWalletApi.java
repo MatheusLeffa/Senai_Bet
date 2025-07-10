@@ -1,7 +1,7 @@
 package com.senai.apigateway.integration;
 
 import com.senai.apigateway.dtos.PaymentDto;
-import com.senai.apigateway.entity.ResponseObject;
+import com.senai.apigateway.dtos.ResponseObject;
 import com.senai.apigateway.entity.User;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;

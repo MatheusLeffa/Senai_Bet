@@ -1,16 +1,16 @@
-package com.senai.apigateway.entity;
+package com.senai.userwalletapi.dto;
 
 import lombok.Data;
 
 @Data
-public class MessageObject {
+public class MessageDto {
     private String event;
     private Object data;
 
-    public MessageObject() {
+    public MessageDto() {
     }
 
-    public MessageObject(String event, Object data) {
+    public MessageDto(String event, Object data) {
         this.event = event;
         this.data = data;
     }

@@ -9,8 +9,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class WalletService {
 
+    private final WalletRepository walletRepository;
+
     @Autowired
-    private WalletRepository walletRepository;
+    public WalletService(WalletRepository walletRepository) {
+        this.walletRepository = walletRepository;
+    }
 
     public Wallet createWallet(User user) throws Exception {
         if (user == null) {

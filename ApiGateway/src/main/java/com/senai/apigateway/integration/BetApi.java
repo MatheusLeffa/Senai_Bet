@@ -1,8 +1,7 @@
 package com.senai.apigateway.integration;
 
-import com.senai.apigateway.dtos.NewBetDto;
 import com.senai.apigateway.entity.Bet;
-import com.senai.apigateway.entity.ResponseObject;
+import com.senai.apigateway.dtos.ResponseObject;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

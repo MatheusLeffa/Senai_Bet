@@ -1,6 +1,6 @@
 package com.senai.apigateway.configuration;
 
-import com.senai.apigateway.entity.ResponseObject;
+import com.senai.apigateway.dtos.ResponseObject;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.FeignException;
