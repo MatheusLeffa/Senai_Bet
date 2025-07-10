@@ -1,4 +1,4 @@
-package com.senai.apigateway.entity;
+package com.senai.userwalletapi.entity;
 
 import lombok.Data;
 
@@ -7,12 +7,8 @@ public class ResponseObject {
     private boolean isSuccess;
     private Object result;
 
-    public ResponseObject() {
-    }
-
     public ResponseObject(boolean isSuccess, Object result) {
         this.isSuccess = isSuccess;
         this.result = result;
     }
-
 }

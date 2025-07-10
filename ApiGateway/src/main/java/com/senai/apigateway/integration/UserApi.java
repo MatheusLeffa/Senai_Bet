@@ -19,7 +19,4 @@ public interface UserApi {
 
     @PostMapping(value = "/users", produces = "application/json")
     public ResponseEntity<ResponseObject> createUser(@RequestBody User user);
-
-    @PutMapping(value = "/users/update", produces = "application/json")
-    public ResponseEntity<ResponseObject> updateUser(@RequestBody User user);
 }

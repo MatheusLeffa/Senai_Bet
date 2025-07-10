@@ -1,3 +1,7 @@
+#Manual to start the container:
+#Go to the terminal on the folder where the docker-compose.yml is, and run the command:
+#docker-compose up -d
+
 services:
   rabbitmq:
     image: rabbitmq:3-management

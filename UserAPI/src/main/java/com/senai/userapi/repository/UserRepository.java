@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public class UserRepository {
 
-    private final List<User> users = new ArrayList<>();
+    private final static List<User> users = new ArrayList<>();
     private static Integer id = 0;
 
     public User createUser(User user) {
