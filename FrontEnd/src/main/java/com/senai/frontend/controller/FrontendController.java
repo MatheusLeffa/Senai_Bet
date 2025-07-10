@@ -61,6 +61,10 @@ public class FrontendController {
                            BindingResult result,
                            Model model,
                            RedirectAttributes redirectAttributes) {
+        if (newBetDto.getBetNumbers().size() != new ArrayList<>(newBetDto.getBetNumbers()).size()) {
+            result.rejectValue("betNumbers", "error.newBet", "Números repetidos não são permitidos.");
+        }
+
         if (result.hasErrors()) {
             loadUsers(model);
             model.addAttribute("newUser", new NewUserDto());

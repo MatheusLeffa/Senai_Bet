@@ -12,6 +12,7 @@ public class NewBetDto {
     @NotNull(message = "User ID is required")
     private Integer userId;
 
-    @Size(min = 1, message = "At least one number is required")
+    @Size(min = 5, message = "You must choose at least 5 distinct numbers")
+    @Size(max = 5, message = "You must choose at least 5 distinct numbers")
     private Set<Integer> betNumbers = new HashSet<>();
 }
